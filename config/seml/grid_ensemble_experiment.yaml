@@ -1,0 +1,68 @@
+seml:
+  project_root_dir: ../../
+  executable: experiment_ensemble.py
+  output_dir: ./logs
+  name: ensemble_gcn
+
+slurm:
+  experiments_per_job: 10
+  sbatch_options:
+    # TODO: set the partition and account
+    gres: ~
+    mem: 8G          
+    cpus-per-task: 2  
+    time: 0-00:15
+    account: ~
+    partition: ~
+    qos: ~
+
+fixed:
+  num_model_ensemble: 10 # can be ignored for other experiments
+  patience: 50
+  min_delta: 0.001
+  inductive_setting: False
+  
+grid:
+  seed:
+    type: range
+    min: 3000
+    max: 3100
+    step: 10
+    
+  +dataset:
+    type: choice
+    options:
+      #- config/data/PubMed.yaml
+      # - config/data/Cora.yaml
+      #- config/data/Cornell.yaml
+      #- config/data/Citeseer.yaml
+      #- config/data/CoraML-LLM.yaml
+      - config/data/Photo.yaml
+      #- config/data/Physics.yaml
+
+  +model:
+    type: choice
+    options:
+      - config/model/gcn.yaml
+      
+  +task:
+    type: choice
+    options:
+      - config/task/node_classification.yaml
+
+  +distribution_shifts:
+    type: choice
+    options:
+      - config/distribution_shifts/feature_pertubation.yaml
+      #- config/distribution_shifts/leave_out_class.yaml
+      #- config/distribution_shifts/no_shift.yaml
+  
+  task.learning_rate:
+    type: choice
+    options:
+      - 0.001
+
+  task.epochs:
+    type: choice
+    options:
+      - 10000

@@ -1,0 +1,7 @@
+distribution_shifts:
+  type: leave_out_class
+  #class: [4,5,6] #CoraML
+  class: [-1] #PubMed
+  #class: [4,5] #Citeseer
+  #class: [7,6,5] #Amazon Photo
+  

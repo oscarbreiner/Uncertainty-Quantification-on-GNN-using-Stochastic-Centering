@@ -1,0 +1,5 @@
+model:
+  type: gcn_feature_anchor
+  hidden_channels: 64
+  dropout_prob: 0.5
+  dropout_during_test: False

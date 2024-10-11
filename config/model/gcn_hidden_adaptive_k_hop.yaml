@@ -1,0 +1,6 @@
+model:
+  type: gcn_hidden_adaptive_k_hop
+  hidden_channels: 64
+  dropout_prob: 0.5
+  dropout_during_test: False
+  k_hop_max: 8

@@ -1,0 +1,75 @@
+seml:
+  project_root_dir: ../../
+  executable: experiment_GdUQ_feature.py
+  output_dir: ./logs
+  name: feature_anchor
+
+slurm:
+  experiments_per_job: 2
+  sbatch_options:
+    # TODO: set the partition and account
+    gres: ~
+    mem: 8G          
+    cpus-per-task: 2  
+    time: 0-00:15
+    account: ~
+    partition: ~
+    qos: ~
+
+fixed:
+  seed: 42
+  anchoring_mode: 'Gaussian'
+  # split_index: 0
+  patience: 50
+  min_delta: 0.001
+  inductive_setting: True
+  
+grid:
+  number_ensemble_anchors: 
+    type: choice
+    options:
+      - 10
+
+  +dataset:
+    type: choice
+    options:
+      - config/data/PubMed.yaml
+      # - config/data/Cora.yaml
+      # - config/data/Cornell.yaml
+      #- config/data/Citeseer.yaml
+      #- config/data/CoraML-LLM.yaml
+      #- config/data/Photo.yaml
+      #- config/data/Physics.yaml
+
+  +model:
+    type: choice
+    options:
+      - config/model/gcn_feature_anchor.yaml
+  
+  model.dropout_prob:
+    type: choice
+    options:
+      - 0.5
+  
+  +distribution_shifts:
+    type: choice
+    options:
+      #- config/distribution_shifts/feature_pertubation.yaml
+      - config/distribution_shifts/leave_out_class.yaml
+      # - config/distribution_shifts/no_shift.yaml
+
+  +task:
+    type: choice
+    options:
+      - config/task/node_classification.yaml
+  
+  task.learning_rate:
+    type: choice
+    options:
+      # - 0.01
+      - 0.001
+  
+  task.epochs:
+    type: choice
+    options:
+      - 2000

@@ -1,0 +1,25 @@
+seml:
+  project_root_dir: ../../
+  executable: main.py
+  output_dir: ./logs
+  name: single_run
+
+slurm:
+  experiments_per_job: 1
+  sbatch_options:
+    # TODO: set the partition and account
+    gres: ~
+    mem: 8G          
+    cpus-per-task: 2  
+    time: 0-00:15
+    account: ~
+    partition: ~
+    qos: ~
+
+fixed:
+  seed: 42
+
+parameter:
+  dataset: config/data/cora.yaml
+  model: config/model/gcn.yaml
+  task: config/task/gcn_train.yaml

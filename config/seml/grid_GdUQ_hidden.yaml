@@ -1,0 +1,85 @@
+seml:
+  project_root_dir: ../../
+  executable: experiment_GdUQ_hidden.py
+  output_dir: ./logs
+  name: new_kHOP # ${model.k_hop}_${distribution_shifts.name}
+
+slurm:
+  experiments_per_job: 2
+  sbatch_options:
+    # TODO: set the partition and account
+    gres: ~
+    mem: 8G          
+    cpus-per-task: 2  
+    time: 0-00:15
+    account: ~
+    partition: ~
+    qos: ~
+
+fixed:
+  seed: 42
+  # anchoring_mode: 'Gaussian'
+  # split_index: 0
+  patience: 50
+  min_delta: 0.001
+  inductive_setting: False
+
+grid:
+  number_anchors: 
+    type: choice
+    options:
+      - 10
+
+  +dataset:
+    type: choice
+    options:
+      - config/data/PubMed.yaml
+      # - config/data/Cora.yaml
+      # - config/data/Cornell.yaml
+      # - config/data/Citeseer.yaml
+      # - config/data/CoraML-LLM.yaml
+      # - config/data/Photo.yaml
+      # - config/data/Physics.yaml
+
+  +model:
+    type: choice
+    options:
+      # - config/model/gcn_hidden.yaml
+      - config/model/gcn_hidden_avg_k_hop.yaml
+      #- config/model/gcn_hidden_adaptive_k_hop.yaml
+  
+  +distribution_shifts:
+    type: choice
+    options:
+      #- config/distribution_shifts/feature_pertubation.yaml
+      - config/distribution_shifts/leave_out_class.yaml
+      # - config/distribution_shifts/no_shift.yaml
+
+  +task:
+    type: choice
+    options:
+      - config/task/node_classification.yaml
+  
+  task.learning_rate:
+    type: choice
+    options:
+      # - 0.01
+      - 0.001
+  
+  model.k_hop:
+    type: choice
+    options:
+      - 4
+      #- 3
+      #- 5
+      #- 10
+
+  task.epochs:
+    type: choice
+    options:
+      - 2000
+  
+  model.dropout_prob:
+    type: choice
+    options:
+      - 0.5

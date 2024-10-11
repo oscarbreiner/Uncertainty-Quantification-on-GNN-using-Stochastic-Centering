@@ -1,0 +1,37 @@
+[project]
+name = "stochastic-centering-for-uncertainty-estimation-on-graphs"
+version = "0.0.1"
+authors = [
+    { name = "breiner,ungermann,von-Witzleben", email = "oscar.breiner@tum.de,paul.ungermann@tum.de,c.von-witzleben@tum.de" },
+]
+dependencies = [
+    # General science & ml
+    "numpy",
+    "scipy",
+    "scikit-learn",
+    "pandas",
+    "einops",
+
+    # Plotting & visualization
+    "matplotlib",
+
+    # seml
+    "seml",
+
+    # Utilities
+    "tqdm",
+    "rich",
+    "ipython",
+    "ipdb",
+    "jupyterlab",
+    "ipympl",
+    "ipywidgets",
+
+    # Development utilities
+    "pre-commit",
+    "ruff",
+    "pytest",
+]
+
+requires-python = ">= 3.11"
+license = { text = "MIT" }

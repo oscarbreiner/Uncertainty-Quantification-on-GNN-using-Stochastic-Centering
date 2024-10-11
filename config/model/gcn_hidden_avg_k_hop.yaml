@@ -1,0 +1,6 @@
+model:
+  type: gcn_hidden_avg_k_hop
+  hidden_channels: 64
+  dropout_prob: 0.5
+  dropout_during_test: False
+  k_hop: 2

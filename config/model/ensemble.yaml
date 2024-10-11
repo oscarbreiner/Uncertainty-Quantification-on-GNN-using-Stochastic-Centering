@@ -1,0 +1,7 @@
+model:
+  type: ensemble
+  num_models: 10
+  base_model:
+    type: gcn
+    hidden_channels: 64
+  

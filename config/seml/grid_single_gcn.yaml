@@ -1,0 +1,58 @@
+seml:
+  project_root_dir: ../../
+  executable: experiment_single_gcn.py
+  output_dir: ./logs
+  name: new_split
+
+slurm:
+  experiments_per_job: 10
+  sbatch_options:
+    # TODO: set the partition and account
+    gres: ~
+    mem: 8G          
+    cpus-per-task: 2  
+    time: 0-00:15
+    account: ~
+    partition: ~
+    qos: ~
+
+fixed:
+  seed: 42
+  patience: 200
+  min_delta: 0.1
+  # distribution_shifts: Null
+  
+grid:
+  +dataset:
+    type: choice
+    options:
+      - config/data/Cora.yaml
+      # - config/data/Cornell.yaml
+
+  +model:
+    type: choice
+    options:
+      - config/model/gcn.yaml
+      
+  +task:
+    type: choice
+    options:
+      - config/task/node_classification.yaml
+
+  +distribution_shifts:
+   type: choice
+   options:
+    #  - config/distribution_shifts/feature_pertubation.yaml
+      - config/distribution_shifts/leave_out_class.yaml
+      # - config/distribution_shifts/no_shift.yaml
+      
+  
+  task.learning_rate:
+    type: choice
+    options:
+      - 0.001
+
+  task.epochs:
+    type: choice
+    options:
+      - 1000

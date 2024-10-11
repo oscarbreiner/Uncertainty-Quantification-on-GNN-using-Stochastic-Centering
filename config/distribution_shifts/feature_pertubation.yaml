@@ -1,0 +1,11 @@
+distribution_shifts:
+  type: feature_pertubations
+  distribution: normal
+  ood_fraction: 0.5
+  
+  # Needed for normal distribution
+  mean: 0
+  std: 1
+
+  # Needed for bernoulli distribution
+  #p: 0.5

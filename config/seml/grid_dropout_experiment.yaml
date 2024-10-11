@@ -1,0 +1,71 @@
+seml:
+  project_root_dir: ../../
+  executable: experiment_dropout.py
+  output_dir: ./logs
+  name: kein_shift_inductive
+
+slurm:
+  experiments_per_job: 10
+  sbatch_options:
+    # TODO: set the partition and account
+    gres: ~
+    mem: 8G          
+    cpus-per-task: 2  
+    time: 0-00:15
+    account: ~
+    partition: ~
+    qos: ~
+
+fixed:
+  patience: 50
+  min_delta: 0.001
+  split_index: 0
+  num_samples_dropout: 50
+  inductive_setting: True
+  
+grid:
+  seed:
+    type: range
+    min: 1000
+    max: 1100
+    step: 20
+
+
+  +dataset:
+    type: choice
+    options:
+      #- config/data/Cora.yaml
+      - config/data/PubMed.yaml
+      #- config/data/Photo.yaml
+
+  +model:
+    type: choice
+    options:
+      - config/model/gcn.yaml
+      
+  +task:
+    type: choice
+    options:
+      - config/task/node_classification.yaml
+
+  +distribution_shifts:
+    type: choice
+    options:
+      #- config/distribution_shifts/feature_pertubation.yaml
+      - config/distribution_shifts/no_shift.yaml
+      #- config/distribution_shifts/leave_out_class.yaml
+  
+  task.learning_rate:
+    type: choice
+    options:
+      - 0.001
+
+  task.dropout_during_test:
+    type: choice
+    options:
+      - True
+
+  task.epochs:
+    type: choice
+    options:
+      - 10000
