@@ -2,6 +2,8 @@
 
 Collaborators: Oscar Breiner, Constantin von Witzleben, Paul Ungermann
 
+![poster6](https://github.com/user-attachments/assets/5a048c89-ad2d-4357-8263-bd590dce0407)
+
 The goal of our project was to evaluate stochastic centering as a method for uncertainty quantification for GNNs. A recent paper investigated this concept and termed it G-ΔUQ. The authors of G-ΔUQ claim that the model is an implicit ensemble model due to the stochasticity of the anchor nodes. However, the authors of G-ΔUQ only provided empirical evidence primarily through the empirical graph NTK. Furthermore, the authors mostly benchmarked their method on calibration. They did not analyze the behavior on node classification tasks.
 
 Therefore, we implemented and evaluated G-ΔUQ on a node classification task using different test time distribution shifts. We used a feature perturbation shift and a leave-out-class distribution shift. We compared G-Δ-UQ to a dropout model and an ensemble model. To enable a fair comparison, we used the same backbones and hyperparameters for all models. We found that G-ΔUQ performs fairly even to ensemble models. This aligns with the theory because G-ΔUQ is an implicit ensemble. However, G-ΔUQ completely ignores the non-iid nature of the data. Because of that, we developed new, more graph-structure-aware methods to enhance G-ΔUQ's performance. Unfortunately, our extensions did not lead to a significant improvement.
