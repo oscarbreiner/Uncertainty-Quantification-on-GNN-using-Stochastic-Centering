@@ -16,16 +16,31 @@ Conclusively, our empirical findings align with the claim, that G-ΔUQ is an imp
 
 
 
-## Setup
+## Requirements
 
-### 1. Install Dependencies
+### 1. Dependencies
 
-- Install the required dependencies by running:
+- This project uses `poetry` for dependency management. To install all required dependencies, run:
     ```bash
     poetry install
     ```
+  This will automatically install the dependencies specified in the `pyproject.toml` file.
 
-### 2. Configure SLURM (Optional)
+### 2. Experiment Tracking with SEML
+
+- The project uses [SEML](https://github.com/TUM-DAML/seml) to manage and track experiments. 
+
+**What is SEML?**  
+SEML links the Slurm workload scheduler, Sacred experiment management, and MongoDB. It's a lightweight, hackable Python tool that scales to thousands of experiments, making it easy to organize, schedule, and track experiments seamlessly.
+
+To use SEML:
+1. Install SEML by following the [SEML installation guide](https://github.com/TUM-DAML/seml).
+2. Ensure you have access to a MongoDB database and Slurm for experiment scheduling.
+3. Configure your experiments using the YAML files under `config/seml/`.
+
+## Setup
+
+### 1. Configure SLURM (Optional)
 
 - If you are using a GPU cluster with SLURM for job scheduling, adjust the SLURM settings in the configuration file:
     ```
@@ -33,10 +48,22 @@ Conclusively, our empirical findings align with the claim, that G-ΔUQ is an imp
     ```
   Update the SLURM parameters such as `partition`, `gpus`, and `cpus-per-task` according to your cluster's configuration.
 
-### 3. Run the Experiment
+### 2. Run the Experiment
 
 - Execute the experiment script to start training and evaluation:
     ```bash
-    python experiment_<your-experiment>.py
+    python experiment_<set-up>.py
     ```
   Replace `<set-up>` with the appropriate script name, such as `experiment_baseline.py` or `experiment_advanced.py`.
+
+### 3. Using SEML for Experiment Management
+
+- To run experiments using SEML:
+    1. Configure the YAML files in `config/seml/` to define your experiment settings.
+    2. Use SEML commands to queue, start, and monitor experiments. For example:
+        ```bash
+        seml queue <experiment_name>
+        seml start <experiment_name>
+        seml status <experiment_name>
+        ```
+  SEML will automatically handle experiment scheduling, configuration management, and result tracking through Sacred and MongoDB.
